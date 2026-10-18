@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090d">
+  <meta name="description" content="Descarga Eryon Launcher para Windows. Tu Minecraft, tu experiencia.">
+  <title>Eryon Launcher — Tu Minecraft. Tu experiencia.</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #09090d;
+      --panel: rgba(19, 19, 27, .84);
+      --panel-strong: #15151e;
+      --text: #f7f6ff;
+      --muted: #aaa8bb;
+      --subtle: #77758b;
+      --accent: #55ec91;
+      --accent-2: #0b9c51;
+      --line: rgba(255,255,255,.10);
+      --green: #8ce7bc;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% -10%, rgba(27, 190, 96, .22), transparent 38rem),
+        radial-gradient(ellipse at 100% 55%, rgba(22, 95, 52, .15), transparent 32rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 44px)); margin-inline: auto; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; min-height:82px; border-bottom:1px solid rgba(255,255,255,.055); }
+    .brand { display:inline-flex; gap:12px; align-items:center; text-decoration:none; font-size:15px; font-weight:850; letter-spacing:.12em; }
+    .brand-mark { display:grid; place-items:center; width:39px; height:39px; border:1px solid rgba(133,255,177,.38); border-radius:12px; background:linear-gradient(145deg,#62f49b,#078b4a); box-shadow:0 8px 28px rgba(13,166,78,.30); color:white; font-size:23px; font-weight:950; letter-spacing:-.08em; }
+    .nav { display:flex; gap:26px; align-items:center; color:var(--muted); font-size:13px; }
+    .nav a { text-decoration:none; transition:color .15s; }
+    .nav a:hover { color:#fff; }
+    .nav .nav-github { padding:10px 14px; border:1px solid var(--line); border-radius:11px; color:#effff4; }
+    .hero { position:relative; display:grid; grid-template-columns:1.1fr .9fr; align-items:center; gap:38px; padding:92px 0 78px; }
+    .eyebrow { display:inline-flex; align-items:center; gap:9px; padding:8px 11px; border:1px solid rgba(83,235,139,.28); border-radius:999px; background:rgba(15,160,75,.10); color:#aaffc8; text-transform:uppercase; font-size:10px; font-weight:800; letter-spacing:.14em; }
+    .pulse { height:7px; width:7px; border-radius:50%; background:var(--green); box-shadow:0 0 13px rgba(140,231,188,.6); }
+    h1 { margin:22px 0 18px; max-width:650px; font-size:clamp(44px,6.2vw,76px); line-height:.99; letter-spacing:-.065em; font-weight:900; }
+    h1 .accent { display:block; color:var(--accent); background:linear-gradient(90deg,#c2ffd7,#60f59a 60%,#15b55e); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .lead { max-width:545px; margin:0; color:var(--muted); font-size:16px; line-height:1.8; }
+    .actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:30px; }
+    .button { min-height:51px; display:inline-flex; justify-content:center; align-items:center; gap:10px; padding:0 20px; border:1px solid transparent; border-radius:13px; text-decoration:none; font-size:13px; font-weight:800; cursor:pointer; transition:transform .18s,filter .18s,border-color .18s; }
+    .button:hover { transform:translateY(-2px); filter:brightness(1.08); }
+    .button-primary { color:#fff; background:linear-gradient(125deg,#42e583,#098a4a); box-shadow:0 12px 32px rgba(18,178,85,.28); }
+    .button-secondary { color:#e2ffec; background:rgba(255,255,255,.035); border-color:var(--line); }
+    .button:focus-visible, a:focus-visible { outline:2px solid #9bffc0; outline-offset:4px; }
+    .button svg { width:18px; height:18px; }
+    .download-note { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px 13px; color:var(--subtle); font-size:11px; }
+    .download-note span { display:inline-flex; align-items:center; gap:6px; }
+    .download-note svg { width:13px; height:13px; color:#8cbaa0; }
+    .status { min-height:20px; margin-top:10px; color:#a7ffc4; font-size:12px; }
+    .visual { position:relative; display:grid; place-items:center; min-height:380px; isolation:isolate; }
+    .orbital { position:absolute; width:min(100%,390px); aspect-ratio:1; border-radius:50%; border:1px solid rgba(111,255,163,.16); transform:rotate(-22deg) scaleY(.47); }
+    .orbital::before,.orbital::after { content:""; position:absolute; inset:12%; border:1px solid rgba(111,255,163,.12); border-radius:50%; }
+    .orbital::after { inset:-13%; border-color:rgba(111,255,163,.07); }
+    .glow { position:absolute; z-index:-1; width:260px; height:260px; border-radius:50%; background:#12b95e; filter:blur(95px); opacity:.32; }
+    .launcher-card { position:relative; width:min(100%,360px); overflow:hidden; border:1px solid rgba(164,255,194,.17); border-radius:21px; background:linear-gradient(145deg,rgba(27,26,39,.96),rgba(12,12,18,.95)); box-shadow:0 35px 100px rgba(0,0,0,.44),0 0 60px rgba(20,190,94,.11); transform:rotate(2deg); }
+    .card-head { display:flex; align-items:center; gap:7px; height:40px; padding:0 15px; border-bottom:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.018); }
+    .dot { width:7px;height:7px;border-radius:50%;background:#565367; }
+    .card-label { margin-left:auto; color:#777389; font-size:9px; letter-spacing:.15em; font-weight:800; }
+    .card-content { padding:24px; }
+    .card-logo { display:grid; place-items:center; width:58px;height:58px;border:1px solid rgba(148,255,184,.34);border-radius:17px;background:linear-gradient(145deg,#54f095,#08753e);font-size:34px;font-weight:950;letter-spacing:-.1em;box-shadow:0 8px 27px rgba(15,175,79,.25); }
+    .card-title { margin:18px 0 4px; font-size:19px; letter-spacing:-.03em; font-weight:850; }
+    .card-subtitle { color:#9996ac; font-size:11px; }
+    .fake-world { position:relative; height:90px; overflow:hidden; margin:19px 0 16px; border:1px solid rgba(255,255,255,.06); border-radius:12px; background:linear-gradient(180deg,#173f2a 0%,#286f45 50%,#172c22 100%); }
+    .fake-world::before { content:""; position:absolute; right:18%; top:16px; width:27px;height:27px;border-radius:50%;background:#d0ff91;box-shadow:0 0 24px rgba(177,255,143,.65); }
+    .mountain { position:absolute; bottom:-2px; width:0;height:0;border-left:95px solid transparent;border-right:95px solid transparent;border-bottom:66px solid #173b28; }
+    .mountain.two { left:78px; border-left-width:75px;border-right-width:75px;border-bottom-width:48px;border-bottom-color:#28543a; }
+    .fake-progress { display:flex; justify-content:space-between; margin-bottom:8px; color:#aaa7bd; font-size:10px; }
+    .fake-track { height:5px; border-radius:99px; background:#20392b; overflow:hidden; }
+    .fake-fill { width:72%; height:100%; border-radius:99px; background:linear-gradient(90deg,#13a954,#8cffb3); }
+    .card-foot { display:flex; justify-content:space-between; margin-top:18px; color:#777389; font-size:9px; }
+    .section { padding:35px 0 90px; }
+    .section-heading { text-align:center; margin:0 auto 31px; max-width:560px; }
+    .section-heading h2 { margin:0 0 10px; font-size:clamp(27px,3.5vw,38px); letter-spacing:-.045em; }
+    .section-heading p { margin:0; color:var(--muted); font-size:13px; line-height:1.7; }
+    .features { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .feature { padding:23px; border:1px solid var(--line); border-radius:16px; background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012)); }
+    .feature-icon { display:grid; place-items:center; width:39px;height:39px;margin-bottom:17px;border-radius:12px;color:#aaffc8;background:rgba(30,190,95,.12);border:1px solid rgba(105,240,153,.16); }
+    .feature-icon svg { width:19px;height:19px; }
+    .feature h3 { margin:0 0 8px; font-size:14px; }
+    .feature p { margin:0; color:var(--muted); font-size:12px; line-height:1.75; }
+    .requirements { margin-top:18px; display:flex; justify-content:center; flex-wrap:wrap; gap:10px 24px; color:#858197; font-size:11px; }
+    .requirements span { display:flex; gap:7px; align-items:center; }
+    .requirements b { color:#d0ffe0; font-weight:700; }
+    .bottom-cta { margin:0 0 72px; padding:34px; display:flex; justify-content:space-between; align-items:center; gap:24px; border-radius:20px; border:1px solid rgba(91,238,141,.18); background:radial-gradient(ellipse at 0% 0%,rgba(24,180,83,.14),transparent 60%),rgba(255,255,255,.025); }
+    .bottom-cta h2 { margin:0 0 7px; font-size:25px; letter-spacing:-.04em; }
+    .bottom-cta p { margin:0; color:var(--muted); font-size:12px; line-height:1.7; }
+    footer { border-top:1px solid rgba(255,255,255,.07); padding:25px 0 32px; color:#777487; font-size:11px; }
+    .footer-row { display:flex; justify-content:space-between; align-items:center; gap:18px; }
+    .footer-brand { font-weight:850; color:#d8d3e9; letter-spacing:.12em; }
+    .footer-links { display:flex; gap:18px; flex-wrap:wrap; }
+    .footer-links a { color:#aaa6bb; text-decoration:none; }
+    .disclaimer { margin-top:13px; max-width:780px; line-height:1.7; }
+    @media (max-width:800px) {
+      .hero { grid-template-columns:1fr; padding:64px 0 48px; gap:18px; }
+      .hero-copy { text-align:center; }
+      .lead { margin-inline:auto; }
+      .actions,.download-note { justify-content:center; }
+      .visual { min-height:330px; }
+      .features { grid-template-columns:1fr; }
+      .feature { display:grid; grid-template-columns:42px 1fr; column-gap:13px; padding:19px; }
+      .feature-icon { grid-row:span 2; margin:0; }
+      .feature h3 { align-self:end; }
+      .bottom-cta { align-items:flex-start; flex-direction:column; padding:25px; }
+      .bottom-cta .button { width:100%; }
+    }
+    @media (max-width:520px) {
+      .wrap { width:min(var(--max),calc(100% - 30px)); }
+      .topbar { min-height:70px; }
+      .nav { gap:12px; }
+      .nav a:first-child { display:none; }
+      .nav .nav-github { padding:9px 10px; font-size:11px; }
+      .hero { padding-top:53px; }
+      h1 { font-size:clamp(41px,13vw,60px); }
+      .lead { font-size:14px; }
+      .actions { flex-direction:column; align-items:stretch; }
+      .button { width:100%; }
+      .visual { min-height:300px; }
+      .launcher-card { max-width:325px; }
+      .card-content { padding:20px; }
+      .section { padding-bottom:60px; }
+      .footer-row { flex-direction:column; align-items:flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; } }
+  </style>
+</head>
+<body>
+  <header class="wrap topbar">
+    <a class="brand" href="#inicio" aria-label="Eryon Launcher, inicio">
+      <span class="brand-mark">E</span><span>ERYON</span>
+    </a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#funciones">Funciones</a>
+      <a class="nav-github" href="https://github.com/EricCGO/eryon-launcher-releases/releases/latest" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main id="inicio">
+    <section class="wrap hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> TU AVENTURA EMPIEZA AQUÍ</div>
+        <h1>Tu Minecraft.<span class="accent">Tu experiencia.</span></h1>
+        <p class="lead">Todo lo que necesitas para entrar a tu mundo, reunido en un launcher moderno, práctico y hecho para que jugar sea lo importante.</p>
+        <div class="actions">
+          <a id="downloadButton" class="button button-primary" href="https://github.com/EricCGO/eryon-launcher-releases/releases/latest" aria-label="Descargar la última versión de Eryon Launcher">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></svg>
+            <span id="downloadLabel">Descargar para Windows</span>
+          </a>
+          <a class="button button-secondary" href="https://github.com/EricCGO/eryon-launcher-releases/releases/latest" target="_blank" rel="noreferrer">Ver novedades ↗</a>
+        </div>
+        <div class="download-note">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg><span id="versionLabel">Buscando última versión…</span></span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h7"/></svg>Windows 10/11 · 64 bits</span>
+        </div>
+        <div id="statusMessage" class="status" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="visual" aria-label="Vista decorativa de Eryon Launcher">
+        <div class="orbital"></div><div class="glow"></div>
+        <div class="launcher-card">
+          <div class="card-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="card-label">ERYON LAUNCHER</span></div>
+          <div class="card-content">
+            <div class="card-logo">E</div>
+            <div class="card-title">Bienvenido a Eryon</div>
+            <div class="card-subtitle">Tu Minecraft. Tu experiencia.</div>
+            <div class="fake-world" aria-hidden="true"><span class="mountain"></span><span class="mountain two"></span></div>
+            <div class="fake-progress"><span>Una nueva aventura te espera</span><span>●</span></div>
+            <div class="fake-track"><div class="fake-fill"></div></div>
+            <div class="card-foot"><span>DISEÑADO PARA JUGAR</span><span>v<span id="cardVersion">—</span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="funciones" class="wrap section">
+      <div class="section-heading">
+        <h2>Un launcher. Tu mundo.</h2>
+        <p>Las herramientas para organizar tu experiencia de Minecraft, con una interfaz clara y una instalación sencilla.</p>
+      </div>
+      <div class="features">
+        <article class="feature">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v5c0 5 3.4 7.8 8 9 4.6-1.2 8-4 8-9V7z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3>Inicio de sesión Microsoft</h3><p>Conecta tu cuenta y entra con tu perfil compatible de Minecraft Java Edition.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-5 3 2 5-7"/></svg></div>
+          <h3>Configuración a tu medida</h3><p>Organiza tu instalación y ajusta opciones disponibles para tu forma de jugar.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="6"/><path d="m10 12 1.5 1.5L14.5 10"/></svg></div>
+          <h3>Actualizaciones</h3><p>Consulta las últimas versiones publicadas desde la página oficial de Eryon en GitHub.</p>
+        </article>
+      </div>
+      <div class="requirements">
+        <span><b>Plataforma</b> Windows x64</span>
+        <span><b>Descarga</b> Gratis</span>
+        <span><b>Distribución</b> GitHub Releases</span>
+      </div>
+    </section>
+
+    <section class="wrap bottom-cta">
+      <div><h2>¿Listo para entrar a tu mundo?</h2><p>Descarga Eryon Launcher y empieza a preparar tu próxima aventura.</p></div>
+      <a id="bottomDownload" class="button button-primary" href="https://github.com/EricCGO/eryon-launcher-releases/releases/latest" aria-label="Descargar Eryon Launcher">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></svg>
+        Descargar Eryon
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <div class="footer-brand">ERYON LAUNCHER</div>
+        <div class="footer-links"><a href="https://github.com/EricCGO/eryon-launcher-releases/releases/latest" target="_blank" rel="noreferrer">Versiones</a><a href="https://github.com/EricCGO/eryon-launcher-releases/issues" target="_blank" rel="noreferrer">Reportar un problema</a></div>
+      </div>
+      <p class="disclaimer">Eryon Launcher es un proyecto independiente y no está afiliado, asociado ni respaldado por Mojang Studios o Microsoft. Minecraft es una marca de sus respectivos propietarios. Para jugar a Minecraft Java Edition necesitas una cuenta con acceso al juego.</p>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const api = "https://api.github.com/repos/EricCGO/eryon-launcher-releases/releases/latest";
+      const releasesPage = "https://github.com/EricCGO/eryon-launcher-releases/releases/latest";
+      const button = document.getElementById("downloadButton");
+      const bottomButton = document.getElementById("bottomDownload");
+      const versionLabel = document.getElementById("versionLabel");
+      const cardVersion = document.getElementById("cardVersion");
+      const status = document.getElementById("statusMessage");
+      const label = document.getElementById("downloadLabel");
+
+      function useFallback(message) {
+        button.href = releasesPage;
+        bottomButton.href = releasesPage;
+        button.target = "_blank";
+        bottomButton.target = "_blank";
+        versionLabel.textContent = "Última versión en GitHub";
+        status.textContent = message || "Abre GitHub para ver las descargas disponibles.";
+      }
+
+      async function loadLatestRelease() {
+        try {
+          const response = await fetch(api, {
+            headers: { Accept: "application/vnd.github+json" },
+            cache: "no-store"
+          });
+          if (!response.ok) throw new Error(`GitHub respondió ${response.status}`);
+          const release = await response.json();
+          const assets = Array.isArray(release.assets) ? release.assets : [];
+          const installer = assets.find((asset) => /^Eryon-Launcher-.*-Setup\.exe$/i.test(asset.name));
+          const version = String(release.tag_name || release.name || "").replace(/^v/i, "");
+
+          if (!installer || !installer.browser_download_url) {
+            throw new Error("No se encontró el instalador en la última publicación.");
+          }
+
+          button.href = installer.browser_download_url;
+          bottomButton.href = installer.browser_download_url;
+          button.removeAttribute("target");
+          bottomButton.removeAttribute("target");
+          label.textContent = "Descargar para Windows";
+          versionLabel.textContent = `Versión ${version} · Instalador oficial`;
+          cardVersion.textContent = version || "latest";
+          status.textContent = "Última versión lista para descargar.";
+          button.setAttribute("download", installer.name);
+          bottomButton.setAttribute("download", installer.name);
+        } catch (error) {
+          console.warn("No se pudo consultar la última versión de Eryon:", error);
+          useFallback("No pudimos consultar la versión automáticamente. Puedes ver las descargas en GitHub.");
+        }
+      }
+
+      useFallback("Consultando la última versión…");
+      loadLatestRelease();
+    })();
+  </script>
+</body>
+</html>
