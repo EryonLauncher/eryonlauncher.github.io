@@ -6,7 +6,7 @@ Eryon Launcher es un launcher de escritorio para Minecraft: Java Edition, diseñ
 
 ## ✨ Características
 
-- 🔐 **Inicio de sesión con Microsoft:** conecta tu cuenta para acceder a Minecraft Java Edition.
+- 🔐 **Inicio de sesión con Microsoft y no premium:** conecta tu cuenta o escribe un nombre para acceder a Minecraft Java Edition.
 - 👤 **Gestión de cuentas:** guarda y administra perfiles de Minecraft.
 - 🎮 **Selección de versiones:** consulta y selecciona versiones estables oficiales de Minecraft.
 - ☕ **Gestión de Java:** comprueba la versión necesaria y prepara Java automáticamente en Windows cuando sea necesario.
