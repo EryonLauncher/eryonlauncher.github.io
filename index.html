@@ -844,6 +844,20 @@
             <span>▣ Windows 10/11 · 64 bits</span>
           </div>
 
+          <div class="download-meta" id="downloadsContainer">
+  <span>
+    <svg viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round"
+         width="16" height="16" aria-hidden="true">
+      <path d="M12 3v12"/>
+      <path d="m7 10 5 5 5-5"/>
+      <path d="M5 19h14"/>
+    </svg>
+    <b id="totalDownloads">Consultando descargas…</b>
+  </span>
+</div>
+
           <div id="statusMessage" class="status"
                role="status" aria-live="polite"></div>
         </div>
@@ -1114,8 +1128,70 @@
         }
       }
 
+            async function loadTotalDownloads() {
+        const counter = document.getElementById("totalDownloads");
+
+        try {
+          let total = 0;
+          let page = 1;
+          let releases = [];
+
+          do {
+            const response = await fetch(
+              `https://api.github.com/repos/EricCGO/eryon-launcher-releases/releases?per_page=100&page=${page}`,
+              {
+                headers: {
+                  Accept: "application/vnd.github+json"
+                },
+                cache: "no-store"
+              }
+            );
+
+            if (!response.ok) {
+              throw new Error(`GitHub respondió ${response.status}`);
+            }
+
+            releases = await response.json();
+
+            for (const release of releases) {
+              for (const asset of release.assets || []) {
+                if (/^Eryon-Launcher-.*-Setup\.exe$/i.test(asset.name)) {
+                  total += asset.download_count || 0;
+                }
+              }
+            }
+
+            page++;
+          } while (releases.length === 100);
+
+          counter.textContent =
+            `${total.toLocaleString("es-CO")} descargas totales`;
+
+        } catch (error) {
+          console.error(
+            "No se pudo consultar el total de descargas:",
+            error
+          );
+
+          counter.textContent = "Ver descargas en GitHub";
+
+          counter.parentElement.title =
+            "No se pudo consultar el contador en este momento.";
+
+          counter.parentElement.style.cursor = "pointer";
+          counter.parentElement.addEventListener("click", () => {
+            window.open(
+              "https://github.com/EricCGO/eryon-launcher-releases/releases",
+              "_blank",
+              "noopener,noreferrer"
+            );
+          });
+        }
+      }
+
       useFallback("Consultando la última versión…");
       loadLatestRelease();
+      loadTotalDownloads();
     })();
   </script>
 </body>
